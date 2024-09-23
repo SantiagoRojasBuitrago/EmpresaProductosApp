@@ -54,6 +54,9 @@ app.Use(async (context, next) =>
     await next(); // Continuar con el siguiente middleware
 });
 
+app.UseStaticFiles();
+
+
 // Configurar las rutas de los controladores.
 app.MapControllerRoute(
     name: "default",
