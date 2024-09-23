@@ -1,0 +1,21 @@
+@model Empresa
+
+<form asp-action="Crear" method="post">
+    <div>
+        <label>NIT:</label>
+        <input asp-for="NIT" />
+    </div>
+    <div>
+        <label>Nombre:</label>
+        <input asp-for="Nombre" />
+    </div>
+    <div>
+        <label>Dirección:</label>
+        <input asp-for="Direccion" />
+    </div>
+    <div>
+        <label>Teléfono:</label>
+        <input asp-for="Telefono" />
+    </div>
+    <button type="submit">Guardar</button>
+</form>

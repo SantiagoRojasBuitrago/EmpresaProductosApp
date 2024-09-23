@@ -1,0 +1,37 @@
+@model Producto
+<form asp-action="Crear" method="post">
+    <div>
+        <label>Código:</label>
+        <input asp-for="Codigo" />
+    </div>
+    <div>
+        <label>Nombre del Producto:</label>
+        <input asp-for="Nombre" />
+    </div>
+    <div>
+        <label>Características:</label>
+        <textarea asp-for="Caracteristicas"></textarea>
+    </div>
+    <div>
+        <label>Precio:</label>
+        <input asp-for="Precio" />
+    </div>
+    <div>
+        <label>Moneda:</label>
+        <select asp-for="Moneda">
+            <option value="USD">USD</option>
+            <option value="COP">COP</option>
+            <option value="EUR">EUR</option>
+        </select>
+    </div>
+    <div>
+        <label>Empresa:</label>
+        <select asp-for="EmpresaNIT">
+            @foreach (var empresa in ViewBag.Empresas)
+            {
+                <option value="@empresa.NIT">@empresa.Nombre</option>
+            }
+        </select>
+    </div>
+    <button type="submit">Guardar</button>
+</form>
