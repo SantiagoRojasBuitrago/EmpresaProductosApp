@@ -1,0 +1,51 @@
+@model Producto
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2 class="text-center mb-4">Editar Producto</h2>
+            <div class="card">
+                <div class="card-body">
+                    <form asp-action="Editar" method="post">
+                        <input type="hidden" name="Codigo" value="@Model.Codigo" />
+                        <div class="mb-3">
+                            <label for="Nombre" class="form-label">Nombre:</label>
+                            <input name="Nombre" id="Nombre" class="form-control" value="@Model.Nombre" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="Caracteristicas" class="form-label">Características:</label>
+                            <input name="Caracteristicas" id="Caracteristicas" class="form-control"
+                                value="@Model.Caracteristicas" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="Precio" class="form-label">Precio:</label>
+                            <input type="number" name="Precio" id="Precio" step="0.01" class="form-control"
+                                value="@Model.Precio" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="Moneda" class="form-label">Moneda:</label>
+                            <select name="Moneda" id="Moneda" class="form-select" required>
+                                <option value="@Model.Moneda">@Model.Moneda</option>
+                                <option value="USD">Dólar Estadounidense (USD)</option>
+                                <option value="EUR">Euro (EUR)</option>
+                                <option value="COP">Peso Colombiano (COP)</option>
+                                <option value="MXN">Peso Mexicano (MXN)</option>
+                                <option value="GBP">Libra Esterlina (GBP)</option>
+                            </select>
+                        </div>
+                        @Html.DropDownList("EmpresaNIT",
+                                 new SelectList(ViewBag.Empresas, "NIT", "Nombre", Model.EmpresaNIT),
+                                 new { @class = "form-select", required = "required" })
+
+
+
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Actualizar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

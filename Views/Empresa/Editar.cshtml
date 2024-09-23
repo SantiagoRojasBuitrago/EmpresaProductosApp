@@ -1,0 +1,31 @@
+@model Empresa
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2 class="text-center mb-4">Editar Empresa</h2>
+            <div class="card">
+                <div class="card-body">
+                    <form asp-action="Editar" method="post">
+                        <input type="hidden" name="NIT" value="@Model.NIT" />
+                        <div class="mb-3">
+                            <label for="Nombre" class="form-label">Nombre:</label>
+                            <input name="Nombre" id="Nombre" class="form-control" value="@Model.Nombre" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="Direccion" class="form-label">Dirección:</label>
+                            <input name="Direccion" id="Direccion" class="form-control" value="@Model.Direccion" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="Telefono" class="form-label">Teléfono:</label>
+                            <input name="Telefono" id="Telefono" class="form-control" value="@Model.Telefono" />
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Actualizar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

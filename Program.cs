@@ -40,7 +40,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication(); // Asegúrate de añadir esto
+app.UseAuthentication(); 
 app.UseAuthorization();
 
 // Middleware para redirigir a /Usuarios/Login

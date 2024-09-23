@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Claims = System.Security.Claims.ClaimTypes; // Usar un alias
+using Claims = System.Security.Claims.ClaimTypes; 
 
 
 public class UsuariosController : Controller
@@ -29,31 +29,27 @@ public class UsuariosController : Controller
         var usuario = _context.Usuarios.FirstOrDefault(u => u.Correo == correo);
         if (usuario != null && BCrypt.Net.BCrypt.Verify(contrasena, usuario.Contrasena))
         {
-            // Crear los claims para la autenticación
             var claims = new List<Claim>
             {
-                new Claim(Claims.NameIdentifier, usuario.Correo.ToString()), // Usar el alias
-                new Claim(Claims.Name, usuario.Correo) // Usar el alias
+                new Claim(Claims.NameIdentifier, usuario.Correo.ToString()), 
+                new Claim(Claims.Name, usuario.Correo) 
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
             var authProperties = new AuthenticationProperties
             {
-                IsPersistent = true, // Persistir la sesión
-                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30) // Tiempo de expiración
+                IsPersistent = true, 
+                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30) 
             };
 
-            // Iniciar sesión
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity),
                 authProperties);
 
-            // Autenticación exitosa
             return RedirectToAction("Index", "Dashboard");
         }
 
-        // Fallo en la autenticación
         ModelState.AddModelError("", "Correo o contraseña incorrecta");
         return View();
     }
@@ -80,10 +76,8 @@ public class UsuariosController : Controller
     [HttpPost]
     public async Task<IActionResult> CerrarSesion()
     {
-        // Cerrar sesión
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-        // Redirigir a Shared/Index
         return RedirectToAction("Login", "Usuarios");
     }
 }

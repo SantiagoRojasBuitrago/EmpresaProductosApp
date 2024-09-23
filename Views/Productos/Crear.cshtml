@@ -82,9 +82,17 @@
                             <td>@producto.Precio</td>
                             <td>@producto.Moneda</td>
                             <td>@producto.EmpresaNIT</td>
+                            <td>
+                                <a asp-action="Editar" asp-route-id="@producto.Codigo" class="btn btn-warning">Editar</a>
+                                <form asp-action="Eliminar" asp-route-id="@producto.Codigo" method="post"
+                                    style="display:inline;">
+                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                </form>
+                            </td>
                         </tr>
                     }
                 </tbody>
+
             </table>
         </div>
     </div>

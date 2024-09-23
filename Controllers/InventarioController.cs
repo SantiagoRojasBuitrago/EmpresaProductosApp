@@ -21,7 +21,6 @@ public class InventarioController : Controller
 
         using (var stream = new MemoryStream())
         {
-            // Crear un documento PDF
             using (var pdfWriter = new PdfWriter(stream))
             {
                 using (var pdfDocument = new PdfDocument(pdfWriter))
@@ -44,7 +43,6 @@ public class InventarioController : Controller
                 }
             }
 
-            // Devolver el PDF como un archivo
             return File(stream.ToArray(), "application/pdf", "Inventario.pdf");
         }
     }

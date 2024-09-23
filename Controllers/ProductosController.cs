@@ -14,8 +14,8 @@ public class ProductosController : Controller
     [HttpGet]
     public IActionResult Crear()
     {
-        ViewBag.Empresas = _context.Empresas.ToList(); // Obtener las empresas para el dropdown
-        var productos = _context.Productos.ToList(); // Obtener la lista de productos existentes
+        ViewBag.Empresas = _context.Empresas.ToList(); 
+        var productos = _context.Productos.ToList(); 
         return View(productos);
     }
 
@@ -26,11 +26,11 @@ public class ProductosController : Controller
         {
             _context.Productos.Add(producto);
             _context.SaveChanges();
-            return RedirectToAction("Crear"); // Volver a cargar la vista de crear
+            return RedirectToAction("Crear");
         }
 
-        ViewBag.Empresas = _context.Empresas.ToList(); // En caso de error, recargar la lista de empresas
-        var productos = _context.Productos.ToList(); // Recargar la lista de productos en caso de error
+        ViewBag.Empresas = _context.Empresas.ToList(); 
+        var productos = _context.Productos.ToList(); 
         return View(productos);
     }
 
@@ -39,4 +39,44 @@ public class ProductosController : Controller
         var productos = _context.Productos.ToList();
         return View(productos);
     }
+
+    [HttpGet]
+    public IActionResult Editar(string id)
+    {
+        var producto = _context.Productos.Find(id);
+        if (producto == null)
+        {
+            return NotFound();
+        }
+
+        ViewBag.Empresas = _context.Empresas.ToList(); 
+        return View(producto);
+    }
+
+    [HttpPost]
+    public IActionResult Editar(Producto productoActualizado)
+    {
+        if (ModelState.IsValid)
+        {
+            _context.Productos.Update(productoActualizado);
+            _context.SaveChanges();
+            return RedirectToAction("Crear"); 
+        }
+
+        ViewBag.Empresas = _context.Empresas.ToList(); 
+        return View(productoActualizado);
+    }
+
+    [HttpPost]
+    public IActionResult Eliminar(string id)
+    {
+        var producto = _context.Productos.Find(id);
+        if (producto != null)
+        {
+            _context.Productos.Remove(producto);
+            _context.SaveChanges();
+        }
+        return RedirectToAction("Crear"); 
+    }
+
 }
