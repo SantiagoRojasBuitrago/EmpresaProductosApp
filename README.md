@@ -39,14 +39,6 @@ La aplicación estará disponible en `http://localhost:5248`.
   - Home: `/Home`
   - Privacidad: `/Privacy`
 
-**Contribuciones:**
-Las contribuciones son bienvenidas. Puedes abrir un "issue" o enviar un "pull request" si deseas colaborar.
-
-**Licencia:**
-Este proyecto está licenciado bajo la MIT License.
-
-**Contacto:**
-Para más información, contactar a tu_email@ejemplo.com.
 
 ---
 
