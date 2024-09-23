@@ -40,6 +40,3 @@ La aplicación estará disponible en `http://localhost:5248`.
   - Privacidad: `/Privacy`
 
 
----
-
-Asegúrate de ajustar cualquier detalle necesario según tus requerimientos específicos. ¡Espero que te sea útil!
