@@ -24,6 +24,17 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// Middleware para redirigir a /Usuarios/Login
+app.Use(async (context, next) =>
+{
+    if (context.Request.Path == "/")
+    {
+        context.Response.Redirect("/Usuarios/Login");
+        return; // Detener la ejecución del middleware
+    }
+    await next(); // Continuar con el siguiente middleware
+});
+
 app.UseAuthorization();
 
 // Configurar las rutas de los controladores.
