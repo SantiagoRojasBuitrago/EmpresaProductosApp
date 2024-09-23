@@ -1,39 +1,51 @@
 using Microsoft.AspNetCore.Mvc;
-using DinkToPdf;
-using DinkToPdf.Contracts;
 using System.IO;
 using System.Linq;
-
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using Microsoft.AspNetCore.Authorization;
+[Authorize]
 public class InventarioController : Controller
 {
     private readonly ApplicationDbContext _context;
-    private readonly IConverter _converter;
 
-    public InventarioController(ApplicationDbContext context, IConverter converter)
+    public InventarioController(ApplicationDbContext context)
     {
         _context = context;
-        _converter = converter;
     }
 
     public IActionResult GenerarPDF()
     {
         var productos = _context.Productos.ToList();
 
-        var html = "<h1>Inventario de Productos</h1><table><tr><th>Nombre</th><th>Precio</th></tr>";
-        foreach (var producto in productos)
+        using (var stream = new MemoryStream())
         {
-            html += $"<tr><td>{producto.Nombre}</td><td>{producto.Precio} {producto.Moneda}</td></tr>";
+            // Crear un documento PDF
+            using (var pdfWriter = new PdfWriter(stream))
+            {
+                using (var pdfDocument = new PdfDocument(pdfWriter))
+                {
+                    var document = new Document(pdfDocument);
+                    document.Add(new Paragraph("Inventario de Productos").SetFontSize(20));
+
+                    // Crear tabla
+                    var table = new Table(2); // Dos columnas
+                    table.AddHeaderCell("Nombre");
+                    table.AddHeaderCell("Precio");
+
+                    foreach (var producto in productos)
+                    {
+                        table.AddCell(producto.Nombre);
+                        table.AddCell($"{producto.Precio} {producto.Moneda}");
+                    }
+
+                    document.Add(table);
+                }
+            }
+
+            // Devolver el PDF como un archivo
+            return File(stream.ToArray(), "application/pdf", "Inventario.pdf");
         }
-        html += "</table>";
-
-        var pdfDoc = new HtmlToPdfDocument()
-        {
-            GlobalSettings = { PaperSize = PaperKind.A4 },
-            Objects = { new ObjectSettings { HtmlContent = html } }
-        };
-
-        byte[] pdf = _converter.Convert(pdfDoc);
-
-        return File(pdf, "application/pdf", "Inventario.pdf");
     }
 }

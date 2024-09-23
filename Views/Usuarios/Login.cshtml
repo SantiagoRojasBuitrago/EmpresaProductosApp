@@ -1,11 +1,15 @@
-<form asp-action="Login" method="post">
-    <div>
-        <label>Correo:</label>
-        <input type="email" name="correo" />
+@{
+    ViewBag.ShowNavbar = false; // Ocultar la barra de navegación en esta vista
+}
+
+<form asp-action="Login" method="post" class="container mt-5">
+    <div class="mb-3">
+        <label for="correo" class="form-label">Correo:</label>
+        <input type="email" class="form-control" id="correo" name="correo" required />
     </div>
-    <div>
-        <label>Contraseña:</label>
-        <input type="password" name="contrasena" />
+    <div class="mb-3">
+        <label for="contrasena" class="form-label">Contraseña:</label>
+        <input type="password" class="form-control" id="contrasena" name="contrasena" required />
     </div>
-    <button type="submit">Iniciar Sesión</button>
+    <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
 </form>

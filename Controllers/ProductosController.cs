@@ -1,7 +1,7 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
 using System.Linq;
-
+[Authorize]
 public class ProductosController : Controller
 {
     private readonly ApplicationDbContext _context;
@@ -14,8 +14,9 @@ public class ProductosController : Controller
     [HttpGet]
     public IActionResult Crear()
     {
-        ViewBag.Empresas = _context.Empresas.ToList(); // Para mostrar las empresas en un dropdown
-        return View();
+        ViewBag.Empresas = _context.Empresas.ToList(); // Obtener las empresas para el dropdown
+        var productos = _context.Productos.ToList(); // Obtener la lista de productos existentes
+        return View(productos);
     }
 
     [HttpPost]
@@ -25,10 +26,12 @@ public class ProductosController : Controller
         {
             _context.Productos.Add(producto);
             _context.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Crear"); // Volver a cargar la vista de crear
         }
-        ViewBag.Empresas = _context.Empresas.ToList(); // En caso de error, recargar la lista
-        return View(producto);
+
+        ViewBag.Empresas = _context.Empresas.ToList(); // En caso de error, recargar la lista de empresas
+        var productos = _context.Productos.ToList(); // Recargar la lista de productos en caso de error
+        return View(productos);
     }
 
     public IActionResult Index()

@@ -1,5 +1,6 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
+[Authorize]
 public class EmpresaController : Controller
 {
     private readonly ApplicationDbContext _context;
@@ -12,18 +13,24 @@ public class EmpresaController : Controller
     [HttpGet]
     public IActionResult Crear()
     {
-        return View();
+        var empresas = _context.Empresas.ToList();
+        return View(empresas);
     }
 
     [HttpPost]
-    public IActionResult Crear(Empresa empresa)
+    public IActionResult Crear(Empresa nuevaEmpresa)
     {
         if (ModelState.IsValid)
         {
-            _context.Empresas.Add(empresa);
+            _context.Empresas.Add(nuevaEmpresa);
             _context.SaveChanges();
-            return RedirectToAction("Index");
+
+            // Redirige a la acción Crear para mostrar la lista actualizada
+            return RedirectToAction("Crear");
         }
-        return View(empresa);
+
+        // Si hay un error, regresa a la vista con los datos actuales
+        var empresas = _context.Empresas.ToList();
+        return View(empresas);
     }
 }

@@ -1,0 +1,31 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="card-title mb-0">Bienvenido al Dashboard</h2>
+                </div>
+                <div class="card-body">
+                    <h3>Opciones</h3>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a class="btn btn-outline-primary w-100" asp-controller="Empresa" asp-action="Crear">Manejo de empresas</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a class="btn btn-outline-primary w-100" asp-controller="Productos" asp-action="Crear">Manejo de productos</a>
+                        </li>
+                        <li class="list-group-item">
+                            <form asp-controller="Inventario" asp-action="GenerarPDF" method="get" class="d-grid">
+                                <button type="submit" class="btn btn-outline-success w-100">Generar PDF</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
