@@ -4,7 +4,7 @@ WORKDIR /app
 EXPOSE 80
 
 # Etapa de construcción
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY ["EmpresaProductosApp/EmpresaProductosApp.csproj", "EmpresaProductosApp/"]
 RUN dotnet restore "EmpresaProductosApp/EmpresaProductosApp.csproj"
