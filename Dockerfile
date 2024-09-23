@@ -15,6 +15,9 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 COPY --from=build /app/build .
 
+# Copiar el script de inicialización
+COPY init-db.sh /docker-entrypoint-initdb.d/
+
 # Exponer el puerto
 EXPOSE 80
 ENTRYPOINT ["dotnet", "EmpresaProductosApp.dll"]
